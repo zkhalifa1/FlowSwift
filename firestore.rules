@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Allow users to read their own user document
+    match /users/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      // Only allow Cloud Functions to write (via Admin SDK)
+      allow write: if false;
+    }
+
+    // Only allow users to read/write their own forms
+    match /forms/{formId} {
+      allow read, write: if request.auth != null &&
+        request.auth.uid == resource.data.userId;
+    }
+    
+    // Allow users to access their own voice notes subcollection
+    match /users/{userId}/voiceNotes/{noteId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow updating transcription fields specifically
+      allow update: if request.auth != null && 
+        request.auth.uid == userId &&
+        // Only allow updating transcription-related fields
+        request.resource.data.diff(resource.data).affectedKeys()
+          .hasOnly(['transcription', 'transcriptionStatus', 'transcriptionError', 'lastTranscriptionAttempt']);
+    }
+    
+    // Allow users to access their own templates subcollection
+    match /users/{userId}/templates/{templateId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow users to access their own reports subcollection
+    match /users/{userId}/reports/{reportId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Billing collections - users can only read their own billing data
+    // Only Cloud Functions can write via Admin SDK
+    match /billing/{userId} {
+      // Allow users to read their billing document
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+
+      // Allow users to read their invoices
+      match /invoices/{invoiceId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if false;
+      }
+
+      // Allow users to read their usage records
+      match /usage/{recordId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        allow write: if false;
+      }
+    }
+  }
+}
