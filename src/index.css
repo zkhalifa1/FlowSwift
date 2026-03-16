@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#F5F3F0] text-[#2E2E2E] font-serif;
+}
+
+/* Dashboard container */
+.dashboard-container {
+  @apply min-h-screen flex flex-col items-center py-10 bg-[#F5F3F0];
+}
+
+/* Card style for dashboard sections */
+.dashboard-card {
+  @apply w-full max-w-2xl bg-[#FFFFFF] rounded-3xl shadow-lg p-8 mb-6;
+}
+
+/* Accent button (primary) */
+.btn-accent {
+  @apply bg-[#D84315] text-white rounded-lg px-4 py-2 font-semibold shadow hover:bg-[#E64A19] transition;
+}
+
+/* Secondary button */
+.btn-secondary {
+  @apply bg-[#5D4037] text-white rounded-lg px-4 py-2 font-semibold shadow hover:bg-[#6D4C41] transition;
+}
+
+/* Danger button */
+.btn-danger {
+  @apply bg-[#E53935] text-white rounded-lg px-4 py-2 font-semibold shadow hover:bg-[#D32F2F] transition;
+}
+
+/* Muted secondary text */
+.text-muted {
+  @apply text-[#6D6D6D] text-sm;
+}
+
+/* Large serif heading */
+.heading-serif {
+  @apply font-serif text-3xl font-bold mb-4 text-[#2E2E2E];
+}
+
+/* Voice note card */
+.voice-note-card {
+  @apply bg-[#ffffff] text-[#2E2E2E] rounded-xl p-4 mb-4 flex flex-col shadow-sm;
+}
+
+/* Remove default outline on buttons for a cleaner look */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #D84315;
+}
+
+/* Custom scrollbar for a modern look */
+::-webkit-scrollbar {
+  width: 8px;
+  background: #F5F3F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #D84315;
+  border-radius: 4px;
+}
+
+/* Responsive font for headings */
+h1, h2, h3, h4 {
+  font-family: 'New York', ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+  color: #2E2E2E;
+}
+
+/* Audio player tweaks for dashboard theme */
+audio {
+  background: #ffffff;
+  color-scheme: light;
+}
+
+/* Inputs and textareas for dashboard theme */
+input, textarea {
+  @apply bg-[#ffffff] text-[#2E2E2E] border-[#E0E0E0] placeholder-[#9E9E9E];
+}
+
+/* Add styles for Ask Me and Generate buttons to ensure visibility */
+.btn-ask,
+.btn-generate,
+button.ask-me,
+button.generate {
+  background: #D84315 !important;
+  color: #fff !important;
+  border: 2px solid #D84315 !important;
+  border-radius: 0.75rem !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  padding: 0.75rem 2rem !important;
+  box-shadow: 0 2px 8px rgba(216,67,21,0.08) !important;
+  transition: background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s, opacity 0.2s !important;
+  cursor: pointer !important;
+  outline: none !important;
+  margin: 0 0.5rem !important;
+  opacity: 1 !important;
+}
+
+.btn-ask:hover,
+.btn-generate:hover,
+button.ask-me:hover,
+button.generate:hover,
+.btn-ask:focus,
+.btn-generate:focus,
+button.ask-me:focus,
+button.generate:focus {
+  background: #E64A19 !important;
+  color: #fff !important;
+  border-color: #E64A19 !important;
+  box-shadow: 0 4px 16px rgba(216,67,21,0.18) !important;
+}
+
+.btn-ask:disabled,
+.btn-generate:disabled,
+button.ask-me:disabled,
+button.generate:disabled {
+  background: #D84315 !important;
+  color: #fff !important;
+  border: 2px solid #D84315 !important;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+/* Slide down animation for transcription */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(0.95);
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+    max-height: 1000px;
+  }
+}
